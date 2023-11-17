@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/quotesdb
+  messages:
+    basename: lang/res
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-exception: true
