@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @RestController
@@ -34,9 +35,9 @@ public class QuoteController {
         return result == null ? ResponseEntity.badRequest().build():ResponseEntity.ok(result);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public  ResponseEntity<Map<String, Object>> getAll(
-            @RequestParam(required = false) String quoteAuthor,
+            @RequestParam(required = false) Optional<String> quoteAuthor,
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "5") int pageSize) {
         logger.info("Inside getAll() ");

@@ -4,6 +4,7 @@ import com.example.author.entity.Quote;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public interface QuoteService {
 
@@ -11,9 +12,7 @@ public interface QuoteService {
 
     public Quote save(Quote quote);
 
-    public List<Quote> findAll();
-
-    Map<String, Object> findByQuoteAuthor(String quoteAuthor, int pageNumber, int pageSize);
+    Map<String, Object> findByQuoteAuthor(Optional<String> quoteAuthor, int pageNumber, int pageSize);
 
 
 }

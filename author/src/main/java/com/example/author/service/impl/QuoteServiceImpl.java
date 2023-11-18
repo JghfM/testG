@@ -2,8 +2,8 @@ package com.example.author.service.impl;
 
 import com.example.author.commons.I18Constants;
 import com.example.author.entity.Quote;
-import com.example.author.expection.ElementNotFoundException;
-import com.example.author.expection.PageNumberAndSizeException;
+import com.example.author.exception.ElementNotFoundException;
+import com.example.author.exception.PageNumberAndSizeException;
 import com.example.author.repository.QuoteRepository;
 import com.example.author.service.QuoteService;
 import lombok.AllArgsConstructor;
@@ -37,13 +37,7 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public List<Quote> findAll() {
-        List<Quote> quotes = quoteRepository.findAll();
-        return quotes;
-    }
-
-    @Override
-    public Map<String, Object> findByQuoteAuthor(String quoteAuthor, int pageNumber, int pageSize) {
+    public Map<String, Object> findByQuoteAuthor(Optional<String> quoteAuthor, int pageNumber, int pageSize) {
 
         if(pageNumber < 0 || pageSize <= 0) {
             throw new PageNumberAndSizeException(messageProvider.getLocalMessage(I18Constants.PAGE_PARAMETER_BAD_REQUEST.getKey(),
@@ -53,8 +47,8 @@ public class QuoteServiceImpl implements QuoteService {
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-        Page<Quote> pageQuotes = quoteAuthor == null ? quoteRepository.findAll(pageable):
-                quoteRepository.findByQuoteAuthorContainingIgnoreCase(quoteAuthor, pageable);
+        Page<Quote> pageQuotes = quoteAuthor.isEmpty() ? quoteRepository.findAll(pageable):
+                quoteRepository.findByQuoteAuthorContainingIgnoreCase(quoteAuthor.get(), pageable);
 
         List<Quote> quotes = pageQuotes.getContent();
 

@@ -1,4 +1,4 @@
-package com.example.author.expection;
+package com.example.author.exception;
 
 public class ElementNotFoundException extends RuntimeException {
 
