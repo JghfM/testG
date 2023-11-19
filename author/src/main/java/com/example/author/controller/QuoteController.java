@@ -22,14 +22,14 @@ public class QuoteController {
     Logger logger = Logger.getLogger(QuoteController.class.getName());
 
     @GetMapping("/{id}")
-    public ResponseEntity<Quote> getQuoteById(@PathVariable("id") Long id) {
+    public ResponseEntity<Quote> getQuoteById(@PathVariable("id") final Long id) {
         Quote result = quoteService.findById(id);
         logger.info("The result is: " + result);
         return result == null ? ResponseEntity.notFound().build():ResponseEntity.ok().body(result);
     }
 
     @PostMapping
-    public ResponseEntity<Quote> save(@RequestBody Quote quote) {
+    public ResponseEntity<Quote> save(@RequestBody final Quote quote) {
         Quote result = quoteService.save(quote);
         logger.info("The request body is: " + result);
         return result == null ? ResponseEntity.badRequest().build():ResponseEntity.ok(result);
@@ -37,9 +37,9 @@ public class QuoteController {
 
     @GetMapping
     public  ResponseEntity<Map<String, Object>> getAll(
-            @RequestParam(required = false) Optional<String> quoteAuthor,
-            @RequestParam(defaultValue = "0") int pageNumber,
-            @RequestParam(defaultValue = "5") int pageSize) {
+            @RequestParam(required = false) final Optional<String> quoteAuthor,
+            @RequestParam(defaultValue = "0") final int pageNumber,
+            @RequestParam(defaultValue = "5") final int pageSize) {
         logger.info("Inside getAll() ");
 
         Map<String, Object> response = quoteService.findByQuoteAuthor(quoteAuthor, pageNumber, pageSize);
